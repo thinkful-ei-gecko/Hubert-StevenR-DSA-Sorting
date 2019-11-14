@@ -51,44 +51,44 @@ pivot = 14
 */
 
 // Drill #3 - Implementing quicksort
-function swap(array, i, j) {
-  // array = [1,2,3,4]
-  const tmp = array[i];
-  array[i] = array[j];
-  array[j] = tmp;
-};
+// function swap(array, i, j) {
+//   // array = [1,2,3,4]
+//   const tmp = array[i];
+//   array[i] = array[j];
+//   array[j] = tmp;
+// };
 
-function quickSort(array, start = 0, end = array.length) {
-  if (start >= end) {
-    return array;
-  }
-  const middle = partition(array, start, end);
-  array = quickSort(array, start, middle);
-  array = quickSort(array, middle + 1, end);
-  return array;
-}
+// function quickSort(array, start = 0, end = array.length) {
+//   if (start >= end) {
+//     return array;
+//   }
+//   const middle = partition(array, start, end);
+//   array = quickSort(array, start, middle);
+//   array = quickSort(array, middle + 1, end);
+//   return array;
+// }
 
-function partition(array, start, end) {
-  const pivot = array[end - 1];
-  let j = start;
-  for (let i = start; i < end - 1; i++) {
-    if (array[i] <= pivot) {
-      swap(array, i, j);
-      j++;
-    }
-  }
-  swap(array, end-1, j);
-  return j;
-};
+// function partition(array, start, end) {
+//   const pivot = array[end - 1];
+//   let j = start;
+//   for (let i = start; i < end - 1; i++) {
+//     if (array[i] <= pivot) {
+//       swap(array, i, j);
+//       j++;
+//     }
+//   }
+//   swap(array, end-1, j);
+//   return j;
+// };
 
-let dataset = 
-[89, 30, 25, 32, 72, 70, 51, 42, 25, 24, 53, 55, 78, 
-  50, 13, 40, 48, 32, 26, 2, 14, 33, 45, 72, 56, 44, 21, 
-  88, 27, 68, 15, 62, 93, 98, 73, 28, 16, 46, 87, 28, 65, 
-  38, 67, 16, 85, 63, 23, 69, 64, 91, 9, 70, 81, 27, 97, 
-  82, 6, 88, 3, 7, 46, 13, 11, 64, 76, 31, 26, 38, 28, 13, 
-  17, 69, 90, 1, 6, 7, 64, 43, 9, 73, 80, 98, 46, 27, 22, 
-  87, 49, 83, 6, 39, 42, 51, 54, 84, 34, 53, 78, 40, 14, 5];
+// let dataset = 
+// [89, 30, 25, 32, 72, 70, 51, 42, 25, 24, 53, 55, 78, 
+//   50, 13, 40, 48, 32, 26, 2, 14, 33, 45, 72, 56, 44, 21, 
+//   88, 27, 68, 15, 62, 93, 98, 73, 28, 16, 46, 87, 28, 65, 
+//   38, 67, 16, 85, 63, 23, 69, 64, 91, 9, 70, 81, 27, 97, 
+//   82, 6, 88, 3, 7, 46, 13, 11, 64, 76, 31, 26, 38, 28, 13, 
+//   17, 69, 90, 1, 6, 7, 64, 43, 9, 73, 80, 98, 46, 27, 22, 
+//   87, 49, 83, 6, 39, 42, 51, 54, 84, 34, 53, 78, 40, 14, 5];
 
 //console.log(quickSort(dataset));
 
@@ -133,17 +133,73 @@ function merge(left, right, array) {
 //console.log(mergeSort(dataset))
 
 // Drill #5 - Sorting a linked list using merge sort
-function mergedList() {
 
+function mergedSortList(list) {
+  let length = list.size(list);
+
+  if (length <= 1) {
+    return list;
+  }
+  
+  const middle = Math.floor(length / 2);
+  let left = new LinkedList();
+  let right = new LinkedList();
+  let current = list.head;
+
+while(current !== list.middleOfList(list)) {
+  left.insertLast(current.value)
+}
+current = list.middleOfList(list)
+while(current !== null) {
+right.insertLast(current.value)
+}
+
+  left = mergeSort(left);
+  right = mergeSort(right);
+  
+  return mergedList(left, right, list)
+};
+
+function mergedList(left, right) {
+  let list = new LinkedList();
+  let left = left.head;
+  let right = right.head;
+
+  while(left && right){
+    if (left.value < right.value){
+      list.insertLast(left.value)
+      left = left.next;
+    } else {
+      list.insertLast(right.value)
+      right = right.next;
+    }
+  }
+  while(left) {
+    list.insertLast(left.value)
+    left = left.next;
+  }
+  while(right) {
+    list.insertLast(right.value)
+    right = right.next;
+  }
+
+  return list;
 };
 
 function main() {
   let list = new LinkedList();
 
-  //list.insertFirst();
-  //list.insertLast();
+  list.insertFirst(1);
+  list.insertLast(29);
+  list.insertLast(23);
+  list.insertLast(13);
+  list.insertLast(33);
+  list.insertLast(27);
+  list.insertLast(19);
+  list.insertLast(16);
 
-  console.log(list);
+  // console.log(JSON.stringify(list, null, 2));
+  console.log(mergedSortList(list));
   return;
 }
 main();

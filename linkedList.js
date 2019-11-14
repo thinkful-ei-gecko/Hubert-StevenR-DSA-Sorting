@@ -119,6 +119,29 @@ class LinkedList {
     }
     previousNode.next = currNode.next;
   }
+  size(linkedL) {
+    let counter = 0;
+    let currNode = linkedL.head;
+    while (currNode !== null) {
+      counter++;
+      currNode = currNode.next
+    }
+    console.log(counter);
+  }
+
+  middleOfList(lst) {
+    let end = lst.head;
+    let middle = lst.head;
+    // two cases cover even and odd length
+    while(end !== null && end.next !== null) {
+      // advance one pointer 2 times faster than the other
+      end = end.next.next;
+      middle = middle.next;
+    }
+    // return the value of the node which was advanced at regular speed
+    return middle.value;
+  };
+
 
   find(item) {
     // Start at the head
