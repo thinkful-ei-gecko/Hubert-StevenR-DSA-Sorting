@@ -119,14 +119,19 @@ class LinkedList {
     }
     previousNode.next = currNode.next;
   }
-  size(linkedL) {
+  size() {
     let counter = 0;
-    let currNode = linkedL.head;
-    while (currNode !== null) {
-      counter++;
-      currNode = currNode.next
+    let currNode = this.head;
+    if(!currNode){
+      return counter;
     }
-    console.log(counter);
+    else
+      counter++;
+    while (!(currNode.next == null)) {
+      counter++;
+      currNode = currNode.next;
+    }
+    return counter;
   }
 
   middleOfList(lst) {
@@ -164,6 +169,23 @@ class LinkedList {
     }
     return currNode;
   }
+
+  findNthElement(position) {
+    let node = this.head;
+    for (let i=0; i<position; i++) {
+      node = node.next;
+    }
+    return node;
+  }
+  
+  displayList(list){
+    let currNode = list.head;
+    while (currNode !== null) {
+      console.log(currNode.value);
+      currNode = currNode.next;
+    }
+  }
+
 };
 
 module.exports = LinkedList;

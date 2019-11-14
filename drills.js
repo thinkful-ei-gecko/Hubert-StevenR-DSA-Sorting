@@ -93,49 +93,49 @@ pivot = 14
 //console.log(quickSort(dataset));
 
 // Drill #4 - Implementing merge sort
-function mergeSort(array) {
-  if (array.length <= 1) {
-    return array;
-  }
+// function mergeSort(array) {
+//   if (array.length <= 1) {
+//     return array;
+//   }
 
-  const middle = Math.floor(array.length / 2);
-  let left = array.slice(0, middle);
-  let right = array.slice(middle, array.length);
+//   const middle = Math.floor(array.length / 2);
+//   let left = array.slice(0, middle);
+//   let right = array.slice(middle, array.length);
 
-  left = mergeSort(left);
-  right = mergeSort(right);
-  return merge(left, right, array);
-};
+//   left = mergeSort(left);
+//   right = mergeSort(right);
+//   return merge(left, right, array);
+// };
 
-function merge(left, right, array) {
-  let leftIndex = 0;
-  let rightIndex = 0;
-  let outputIndex = 0;
-  while (leftIndex < left.length && rightIndex < right.length) {
-    if (left[leftIndex] < right[rightIndex]) {
-      array[outputIndex++] = left[leftIndex++];
-    }
-    else {
-      array[outputIndex++] = right[rightIndex++];
-    }
-  }
+// function merge(left, right, array) {
+//   let leftIndex = 0;
+//   let rightIndex = 0;
+//   let outputIndex = 0;
+//   while (leftIndex < left.length && rightIndex < right.length) {
+//     if (left[leftIndex] < right[rightIndex]) {
+//       array[outputIndex++] = left[leftIndex++];
+//     }
+//     else {
+//       array[outputIndex++] = right[rightIndex++];
+//     }
+//   }
 
-  for (let i = leftIndex; i < left.length; i++) {
-    array[outputIndex++] = left[i];
-  }
+//   for (let i = leftIndex; i < left.length; i++) {
+//     array[outputIndex++] = left[i];
+//   }
 
-  for (let i = rightIndex; i < right.length; i++) {
-    array[outputIndex++] = right[i];
-  }
-  return array;
-};
+//   for (let i = rightIndex; i < right.length; i++) {
+//     array[outputIndex++] = right[i];
+//   }
+//   return array;
+// };
 
 //console.log(mergeSort(dataset))
 
 // Drill #5 - Sorting a linked list using merge sort
 
 function mergedSortList(list) {
-  let length = list.size(list);
+  let length = list.size();
 
   if (length <= 1) {
     return list;
@@ -146,16 +146,19 @@ function mergedSortList(list) {
   let right = new LinkedList();
   let current = list.head;
 
-while(current !== list.middleOfList(list)) {
-  left.insertLast(current.value)
-}
-current = list.middleOfList(list)
-while(current !== null) {
-right.insertLast(current.value)
-}
+  while(current !== list.findNthElement(middle)) {
+    left.insertLast(current.value)
+    current = current.next
+  }
 
-  left = mergeSort(left);
-  right = mergeSort(right);
+  current = list.findNthElement(middle)
+  while(current !== null) {
+    right.insertLast(current.value)
+    current = current.next
+  }
+
+  left = mergedSortList(left);
+  right = mergedSortList(right);
   
   return mergedList(left, right, list)
 };
@@ -186,6 +189,51 @@ function mergedList(left, right) {
   return list;
 };
 
+// Drill #6 - Bucket sort
+function bucketSort(arr, high, low) {
+  let result = [];
+
+  for(let i=0; i<arr.length; i++) {
+    result[arr[i] - low] = arr[i]
+  }
+  return result.filter(num => num >= low)
+}
+
+//console.log(bucketSort([5, 1, 32, 15, 23, 63, 20, 12, 100, 50, 41, 10], 100, 1));
+
+// Drill #7 - Sort in place
+function swap(array, i, j) {
+  const tmp = array[i];
+  array[i] = array[j];
+  array[j] = tmp
+
+  return array;
+};
+
+function randomSort(arr) {
+  let random = Math.floor(Math.random() * arr.length);
+
+  for(let i=0; i < arr.length; i++) {
+    swap(arr, i, random)
+  }
+  return arr;
+}
+console.log(randomSort([1, 2, 3, 4, 5, 6]))
+
+// Drill #8 - Sorting books
+function sortBooks(arr) {
+  return arr.sort((a,b) => {
+    if (a < b) {
+      return -1;
+    }
+    if(a > b) {
+      return 1;
+    }
+    return 0
+  })
+}
+console.log(sortBooks(['c', 'z', 'f', 'a', 'q']))
+
 function main() {
   let list = new LinkedList();
 
@@ -199,7 +247,9 @@ function main() {
   list.insertLast(16);
 
   // console.log(JSON.stringify(list, null, 2));
-  console.log(mergedSortList(list));
-  return;
+  return list;
 }
-main();
+
+// const creator = main()
+// const sorted = mergedSortList(creator);
+// sorted.displayList();
