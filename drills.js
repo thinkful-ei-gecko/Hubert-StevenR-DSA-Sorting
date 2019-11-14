@@ -133,8 +133,17 @@ function merge(left, right, array) {
 //console.log(mergeSort(dataset))
 
 // Drill #5 - Sorting a linked list using merge sort
+function mergedList() {
 
-function merged() {
+};
+
+function main() {
   let list = new LinkedList();
 
+  //list.insertFirst();
+  //list.insertLast();
+
+  console.log(list);
+  return;
 }
+main();
