@@ -17,13 +17,14 @@ class LinkedList {
   insertLast(item) {
     if(this.head === null) {
       this.insertFirst(item)
-    }
+    } else {
 
     let tempNode = this.head;
     while(tempNode.next !== null) {
       tempNode = tempNode.next;
     }
     tempNode.next = new _Node(item, null)
+    }
   }
 
   insertBefore(item, key) {
@@ -172,14 +173,14 @@ class LinkedList {
 
   findNthElement(position) {
     let node = this.head;
-    for (let i=0; i<position; i++) {
+    for (let i=1; i<position; i++) {
       node = node.next;
     }
     return node;
   }
   
-  displayList(list){
-    let currNode = list.head;
+  displayList(){
+    let currNode = this.head;
     while (currNode !== null) {
       console.log(currNode.value);
       currNode = currNode.next;
